@@ -72,15 +72,14 @@ public class LoginScreen implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         usernameInput = txtUser.getText();
         passwordInput = txtPass.getText();
-        String[] info = { usernameInput, passwordInput };
         if (!usernameInput.contains(" ") && !passwordInput.contains(" ") && !usernameInput.isBlank()&& !passwordInput.isBlank()) {
             switch (e.getActionCommand()) {
                 case "Login":
-                    Login(info);
+                    Login(usernameInput, passwordInput);
                     break;
                 case "Register":
-                    Register(info);
-                    break;
+                    Register(usernameInput, passwordInput);
+                                        break;
             }
             
         }
@@ -89,18 +88,18 @@ public class LoginScreen implements ActionListener {
             }
     }
 
-    public static void Login(String[] info) {
+    public static void Login(String username, String password) {
         //User u = new User();
-        if (u.validLogIn(info)) {
+        if (u.validLogIn(username, password)) {
                     //System.out.println("Login Successful");
                     OpenMenu();
                 } else {
                     JOptionPane.showMessageDialog(null, "Login Unsuccessful, Invalid username or password");
                 }
     }
-    public static void Register(String[] info) {
-        if(passRegex.validPassword(info[1])){
-            u.setUserInfo(info);
+    public static void Register(String username, String password) {
+        if(passRegex.validPassword(password)){
+            u.setUserInfo(username, password);
             OpenMenu();
         }
         else{

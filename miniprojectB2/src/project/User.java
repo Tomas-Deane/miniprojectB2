@@ -105,7 +105,7 @@ public class User {
 	}
 
 	// check details are same as in text file
-	public boolean validLogIn(String[] userInfo) {
+	public boolean validLogIn(String username, String password) {
 		try {
 			File file = new File("userProfiles.txt");
 			Scanner reader = new Scanner(file);
@@ -113,7 +113,7 @@ public class User {
 				String nextLine = reader.nextLine().trim();
 				String[] infoArr = nextLine.split("[ ]");
 
-				if (userInfo[0].equals(infoArr[1]) && userInfo[1].equals(infoArr[2])) {
+				if (username.equals(infoArr[1]) && password.equals(infoArr[2])) {
 					reader.close();
 					setID(Integer.parseInt(infoArr[0]));
 					setUsername(infoArr[1]);
