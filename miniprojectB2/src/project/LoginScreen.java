@@ -2,14 +2,16 @@
 
 import javax.swing.*;
 
-import java.awt.Color;
 import java.awt.event.*;
 
 public class LoginScreen implements ActionListener {
+    
     private String usernameInput, passwordInput;
     static User u = new User();
     static JFrame frame = new JFrame("Login");
     JPanel panel = new JPanel();
+
+    
     SpringLayout layout = new SpringLayout();
 
     JLabel lblTitle= new JLabel("Welcome to the ISE Quiz ");
@@ -19,13 +21,18 @@ public class LoginScreen implements ActionListener {
     JTextField txtPass = new JTextField("", 15);
     JButton btnLogin = new JButton("Login", null);
     JButton btnRegister = new JButton("Register New User", null);
+    JLabel backgroundLabel = new JLabel(new ImageIcon("C:\\Users\\deane\\MyRepos\\miniprojectB2\\miniprojectB2\\src\\project\\millionaire.jpg"));
+    ImageIcon image;
+    JLabel displayField;
+    
+    
 
     // text.setBounds(200, 200,400,500);;
     public LoginScreen() {
         //JFrame.setDefaultLookAndFeelDecorated(true);        
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setBackground(Color.CYAN);
-        panel.setBackground(Color.CYAN);
+
+        
         panel.setBounds(0,0,700, 500);
         panel.setLayout(layout);
         panel.add(lblTitle);
@@ -35,6 +42,14 @@ public class LoginScreen implements ActionListener {
         panel.add(txtPass);
         panel.add(btnLogin);
         panel.add(btnRegister);
+        panel.add(backgroundLabel);
+
+        image= new ImageIcon("C:\\Users\\deane\\MyRepos\\miniprojectB2\\miniprojectB2\\src\\project\\millionaire.jpg"); 
+        displayField= new JLabel(image);
+        frame.add(displayField);
+
+        
+
         lblTitle.setHorizontalAlignment(JLabel.CENTER);
         // Put constraint on components
         // TITLE CONSTRAINTS
@@ -56,6 +71,11 @@ public class LoginScreen implements ActionListener {
         // REGISTER BUTTON CONSTRAINTS
         layout.putConstraint(SpringLayout.WEST, btnRegister, 150, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.NORTH, btnRegister, 200, SpringLayout.NORTH, panel);
+
+        // layout.putConstraint(SpringLayout.NORTH, backgroundLabel, 150, SpringLayout.NORTH, panel);
+        // layout.putConstraint(SpringLayout.WEST, backgroundLabel, 150, SpringLayout.WEST, panel);
+
+
         frame.add(panel);
         frame.pack();
         frame.setSize(700, 500);

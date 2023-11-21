@@ -1,13 +1,8 @@
-
-
 import javax.swing.*;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.*;
 
-//import java.awt.Dimension;
-//import java.awt.Toolkit;
 public class MenuScreen implements ActionListener {
     // initialising User object
     static User u;
@@ -19,6 +14,10 @@ public class MenuScreen implements ActionListener {
     JButton btnStats = new JButton("Statistics", null);
     JLabel lblUsername = new JLabel("Username: ");
     JLabel lblMenu = new JLabel("Select an option");
+    JPanel colouredBorderNorth = new JPanel();
+    JPanel colouredBorderSouth = new JPanel();
+    JPanel colouredBorderEast = new JPanel();
+    JPanel colouredBorderWest = new JPanel();
 
     // constructor
     public MenuScreen(User u) {
@@ -36,6 +35,11 @@ public class MenuScreen implements ActionListener {
         panel.add(btnStats);
         panel.add(lblUsername);
         panel.add(lblMenu);
+        colouredBorderNorth.setBackground(Color.RED.darker());
+        colouredBorderSouth.setBackground(Color.RED.darker());
+        colouredBorderEast.setBackground(Color.RED.darker());
+        colouredBorderWest.setBackground(Color.RED.darker());
+        
         // lblUsername CONSTRAINTS
         layout.putConstraint(SpringLayout.WEST, lblUsername, 5, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.NORTH, lblUsername, 50, SpringLayout.NORTH, panel);
@@ -49,6 +53,8 @@ public class MenuScreen implements ActionListener {
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, btnQuiz, -50, SpringLayout.HORIZONTAL_CENTER, panel);
         layout.putConstraint(SpringLayout.VERTICAL_CENTER, btnQuiz, 0, SpringLayout.VERTICAL_CENTER, panel);
 
+
+
         frame.add(panel);
         frame.pack();
         frame.setSize(700, 500);
@@ -58,6 +64,7 @@ public class MenuScreen implements ActionListener {
         btnQuiz.setActionCommand("Quiz");
         btnStats.addActionListener(this);
         btnStats.setActionCommand("Stats");
+        panel.setBorder(BorderFactory.createLineBorder(Color.RED, 20));
 
     }
 
