@@ -1,20 +1,27 @@
+package gui;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.*;
 
 import javax.swing.*;
 
+import quiz.Quiz;
+import quiz.QuizFormats;
+import quiz.qaBank;
+import user.User;
+
 public class QuizScreen implements ActionListener {
     User u = new User();
     Quiz q = new Quiz();
     qaBank bank = new qaBank();
+    QuizFormats formats = new QuizFormats();
     int[] qNums;
     int qPointer = 0;
     int marks = 0;
 
     long startTime = 0;
     // initialising frame and components
+    final private String BACKGROUND_IMAGE = "ISEBackground.jpeg";
     static JFrame frame = new JFrame("Quiz");
     JPanel formatPanel = new JPanel();
     JPanel quizPanel = new JPanel();
@@ -35,6 +42,8 @@ public class QuizScreen implements ActionListener {
     JLabel lblMarks = new JLabel("Marks: " + marks);
     //JLabel lblAStatus = new JLabel();
     ButtonGroup ansGroup = new ButtonGroup();
+    JLabel backgroundLabel = new JLabel(new ImageIcon(BACKGROUND_IMAGE));
+
 
     public QuizScreen(User u) {
         this.u = u;
@@ -42,19 +51,19 @@ public class QuizScreen implements ActionListener {
         
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // set background color
-        formatPanel.setBackground(Color.CYAN);
-        quizPanel.setBackground(Color.CYAN);
-        radIncDiff.setBackground(Color.cyan);
-        radRandom.setBackground(Color.cyan);
-        radTimed.setBackground(Color.cyan);
+
+
+        
         // set title font
         lblSelectFormat.setFont(new Font("", Font.BOLD, 20));
         lblQuestion.setFont(new Font("", Font.BOLD, 14));
         lblMarks.setFont(new Font("", Font.BOLD, 20));
         //lblAStatus.setFont(new Font("", Font.BOLD, 20));
         // set format panel size/layout
-        formatPanel.setSize(1200, 800);
+        formatPanel.setSize(1920, 1080);
         formatPanel.setLayout(layout);
+
+
         // setup radio button group
         radiGroup.add(radIncDiff);
         radiGroup.add(radRandom);
@@ -70,6 +79,7 @@ public class QuizScreen implements ActionListener {
         formatPanel.add(radRandom);
         formatPanel.add(btnStart);
         formatPanel.add(radTimed);
+        formatPanel.add(backgroundLabel);
 
         quizPanel.setVisible(false);
         quizPanel.add(lblQuestion);
@@ -80,28 +90,29 @@ public class QuizScreen implements ActionListener {
         quizPanel.add(btnAnsThree);
         quizPanel.add(lblMarks);
         // set quiz panel size/layout
+        // quizPanel.add(backgroundLabel);
         quizPanel.setSize(1200, 800);
         quizPanel.setLayout(layout);
 
         // Spring layout constraints
-        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, lblSelectFormat, 0, SpringLayout.HORIZONTAL_CENTER,
+        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, lblSelectFormat, -200, SpringLayout.HORIZONTAL_CENTER,
                 formatPanel);
-        layout.putConstraint(SpringLayout.NORTH, lblSelectFormat, 5, SpringLayout.NORTH, formatPanel);
+        layout.putConstraint(SpringLayout.NORTH, lblSelectFormat, 60, SpringLayout.NORTH, formatPanel);
 
-        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, radIncDiff, -100, SpringLayout.HORIZONTAL_CENTER,
+        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, radIncDiff, -350, SpringLayout.HORIZONTAL_CENTER,
                 formatPanel);
-        layout.putConstraint(SpringLayout.NORTH, radIncDiff, 40, SpringLayout.NORTH, formatPanel);
+        layout.putConstraint(SpringLayout.NORTH, radIncDiff, 175, SpringLayout.NORTH, formatPanel);
 
-        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, radTimed, 0, SpringLayout.HORIZONTAL_CENTER,
+        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, radTimed, -200, SpringLayout.HORIZONTAL_CENTER,
                 formatPanel);
-        layout.putConstraint(SpringLayout.NORTH, radTimed, 40, SpringLayout.NORTH, formatPanel);
+        layout.putConstraint(SpringLayout.NORTH, radTimed, 175, SpringLayout.NORTH, formatPanel);
 
-        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, radRandom, 100, SpringLayout.HORIZONTAL_CENTER,
+        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, radRandom, -50, SpringLayout.HORIZONTAL_CENTER,
                 formatPanel);
-        layout.putConstraint(SpringLayout.NORTH, radRandom, 40, SpringLayout.NORTH, formatPanel);
+        layout.putConstraint(SpringLayout.NORTH, radRandom, 175, SpringLayout.NORTH, formatPanel);
 
-        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, btnStart, 0, SpringLayout.HORIZONTAL_CENTER, formatPanel);
-        layout.putConstraint(SpringLayout.NORTH, btnStart, 80, SpringLayout.NORTH, formatPanel);
+        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, btnStart, -200, SpringLayout.HORIZONTAL_CENTER, formatPanel);
+        layout.putConstraint(SpringLayout.NORTH, btnStart, 250, SpringLayout.NORTH, formatPanel);
 
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, lblQuestion, 0, SpringLayout.HORIZONTAL_CENTER, quizPanel);
         layout.putConstraint(SpringLayout.NORTH, lblQuestion, 50, SpringLayout.NORTH, quizPanel);
@@ -147,9 +158,10 @@ public class QuizScreen implements ActionListener {
         frame.add(formatPanel);
         frame.add(quizPanel);
         frame.pack();
-        frame.setSize(1200, 800);
+        frame.setSize(1920, 1080);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+        
     }
 
     @Override
@@ -186,20 +198,20 @@ public class QuizScreen implements ActionListener {
         }
     }
 
-    public void startQuiz(boolean incOrRand) {
+    public void startQuiz(boolean increasingDifficulty) {
         formatPanel.setVisible(false);
         quizPanel.setVisible(true);
         if(q.getQuizType()==2){
-            startTime = startTimer();
+            startTime = formats.startTimer();
         }
-        qNums = bank.incOrRand(incOrRand);
+        qNums = formats.getQuestionIndices(increasingDifficulty);
         nextQuestion(-1);
     }
 
     public void nextQuestion(int answerChoice) {
         try {
             if (answerChoice >= 0) {
-                int correctAns = bank.correctAnswer(qNums[qPointer]);
+                int correctAns = bank.getCorrectAnswer(qNums[qPointer]);
                 if (answerChoice == correctAns) {
                     marks++;
                     lblMarks.setText("Marks: " + marks);
@@ -212,7 +224,7 @@ public class QuizScreen implements ActionListener {
                 
                 //lblAStatus.setVisible(false);
             }
-            lblQuestion.setText("<html><pre>" + bank.returnQuestion(qNums[qPointer]) + "</pre></html>");
+            lblQuestion.setText("<html><pre>" + bank.getQuestion(qNums[qPointer]) + "</pre></html>");
         } catch (ArrayIndexOutOfBoundsException e) {
             //end quiz
             endQuiz();
@@ -221,10 +233,10 @@ public class QuizScreen implements ActionListener {
         try {
             btnAnsTwo.setVisible(true);
             btnAnsThree.setVisible(true);
-            btnAnsZero.setText(bank.returnAnswer(qNums[qPointer], 0));
-            btnAnsOne.setText(bank.returnAnswer(qNums[qPointer], 1));
-            btnAnsTwo.setText(bank.returnAnswer(qNums[qPointer], 2));
-            btnAnsThree.setText(bank.returnAnswer(qNums[qPointer], 3));
+            btnAnsZero.setText(bank.getAnswer(qNums[qPointer], 0));
+            btnAnsOne.setText(bank.getAnswer(qNums[qPointer], 1));
+            btnAnsTwo.setText(bank.getAnswer(qNums[qPointer], 2));
+            btnAnsThree.setText(bank.getAnswer(qNums[qPointer], 3));
         } catch (ArrayIndexOutOfBoundsException e) {
             btnAnsTwo.setVisible(false);
             btnAnsThree.setVisible(false);
@@ -234,19 +246,10 @@ public class QuizScreen implements ActionListener {
     public void endQuiz(){
         q.setMark(marks);
         if(q.getQuizType()==2){
-            endTimer(startTime);
+            formats.endTimer(startTime, q);
         }
         new QuizOver(u,q);
         frame.dispose();
     }
-    public long startTimer() { //method to begin timer
-		long startTime = System.currentTimeMillis();
-        return startTime;
-	}
-	public  void endTimer(long startTime) { //method to end timer and return elapsed time
-        long endTime = System.currentTimeMillis();
-        long elapsedTime = endTime - startTime;
-        q.setTime(elapsedTime / 1000.0); 
-
-	}
+    
 }

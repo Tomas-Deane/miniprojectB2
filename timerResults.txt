@@ -1,2 +1,4 @@
 1 2 tomas 8 6.216
 1 2 tomas 3 4.4
+1 2 tomas 7 10.193
+1 2 tomas 6 8.861

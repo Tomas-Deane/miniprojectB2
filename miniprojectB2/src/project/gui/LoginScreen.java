@@ -1,39 +1,40 @@
-
+package gui;
 
 import javax.swing.*;
 
+import user.LoginRegister;
+import user.User;
 import java.awt.event.*;
 
 public class LoginScreen implements ActionListener {
+
+    final private String BACKGROUND_IMAGE = "motherboard1.jpg";
     
     private String usernameInput, passwordInput;
     static User u = new User();
+    static LoginRegister logReg = new LoginRegister();
     static JFrame frame = new JFrame("Login");
     JPanel panel = new JPanel();
 
-    
     SpringLayout layout = new SpringLayout();
 
-    JLabel lblTitle= new JLabel("Welcome to the ISE Quiz ");
+
+    JLabel lblTitle = new JLabel("Welcome to the ISE Quiz ");
     JLabel lblUser = new JLabel("Username: ");
     JTextField txtUser = new JTextField("", 15);
     JLabel lblPass = new JLabel("Password: ");
     JTextField txtPass = new JTextField("", 15);
     JButton btnLogin = new JButton("Login", null);
     JButton btnRegister = new JButton("Register New User", null);
-    JLabel backgroundLabel = new JLabel(new ImageIcon("C:\\Users\\deane\\MyRepos\\miniprojectB2\\miniprojectB2\\src\\project\\millionaire.jpg"));
-    ImageIcon image;
-    JLabel displayField;
-    
+    JLabel backgroundLabel = new JLabel(new ImageIcon(BACKGROUND_IMAGE));
     
 
-    // text.setBounds(200, 200,400,500);;
     public LoginScreen() {
-        //JFrame.setDefaultLookAndFeelDecorated(true);        
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        
-        panel.setBounds(0,0,700, 500);
+        backgroundLabel.setBounds(0,0,1920,1080);
+
+        panel.setBounds(0,0,1920, 1080);
         panel.setLayout(layout);
         panel.add(lblTitle);
         panel.add(lblUser);
@@ -43,18 +44,9 @@ public class LoginScreen implements ActionListener {
         panel.add(btnLogin);
         panel.add(btnRegister);
         panel.add(backgroundLabel);
-
-        image= new ImageIcon("C:\\Users\\deane\\MyRepos\\miniprojectB2\\miniprojectB2\\src\\project\\millionaire.jpg"); 
-        displayField= new JLabel(image);
-        frame.add(displayField);
-
         
-
         lblTitle.setHorizontalAlignment(JLabel.CENTER);
         // Put constraint on components
-        // TITLE CONSTRAINTS
-        //layout.putConstraint(SpringLayout.WEST, lblTitle, (panel.getWidth()-lblTitle.getWidth())/2, SpringLayout.WEST, panel);
-        //layout.putConstraint(SpringLayout.NORTH, lblUser, 60, SpringLayout.NORTH, panel);
         // USERNAME CONSTRAINTS
         layout.putConstraint(SpringLayout.WEST, lblUser, 70, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.NORTH, lblUser, 100, SpringLayout.NORTH, panel);
@@ -72,13 +64,9 @@ public class LoginScreen implements ActionListener {
         layout.putConstraint(SpringLayout.WEST, btnRegister, 150, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.NORTH, btnRegister, 200, SpringLayout.NORTH, panel);
 
-        // layout.putConstraint(SpringLayout.NORTH, backgroundLabel, 150, SpringLayout.NORTH, panel);
-        // layout.putConstraint(SpringLayout.WEST, backgroundLabel, 150, SpringLayout.WEST, panel);
-
-
         frame.add(panel);
         frame.pack();
-        frame.setSize(700, 500);
+        frame.setSize(1920, 1920);
         frame.setLocationRelativeTo(null);
         
         frame.setVisible(true);
@@ -95,11 +83,11 @@ public class LoginScreen implements ActionListener {
         if (!usernameInput.contains(" ") && !passwordInput.contains(" ") && !usernameInput.isBlank()&& !passwordInput.isBlank()) {
             switch (e.getActionCommand()) {
                 case "Login":
-                    Login(usernameInput, passwordInput);
+                    logReg.Login(usernameInput, passwordInput, u, frame);
                     break;
                 case "Register":
-                    Register(usernameInput, passwordInput);
-                                        break;
+                    logReg.Register(usernameInput, passwordInput, u, frame);
+                    break;
             }
             
         }
@@ -108,27 +96,4 @@ public class LoginScreen implements ActionListener {
             }
     }
 
-    public static void Login(String username, String password) {
-        //User u = new User();
-        if (u.validLogIn(username, password)) {
-                    //System.out.println("Login Successful");
-                    OpenMenu();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Login Unsuccessful, Invalid username or password");
-                }
-    }
-    public static void Register(String username, String password) {
-        if(passRegex.validPassword(password)){
-            u.setUserInfo(username, password);
-            OpenMenu();
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "Registration Unsuccessful, password invalid");
-        }
-        
-    }
-    public static void OpenMenu(){
-        new MenuScreen(u);
-        frame.dispose();
-    }
 }

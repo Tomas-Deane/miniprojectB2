@@ -1,3 +1,5 @@
+package gui;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -5,9 +7,13 @@ import java.awt.event.ActionListener;
 
 
 import javax.swing.*;
+
+import quiz.Quiz;
+import user.User;
 public class QuizOver implements ActionListener {
     User u = new User();
     Quiz q;
+    final private String BACKGROUND_IMAGE = "ISEBackground.jpeg";
     static JFrame frame = new JFrame("Quiz Over");
     JPanel panel = new JPanel();
     SpringLayout layout = new SpringLayout();
@@ -16,13 +22,15 @@ public class QuizOver implements ActionListener {
     JLabel lblMark = new JLabel();
     JLabel lblTime = new JLabel();
     JLabel lblTitle = new JLabel("Quiz Over");
+    JLabel backgroundLabel = new JLabel(new ImageIcon(BACKGROUND_IMAGE));
+
 
     public QuizOver(User u, Quiz q) {
         this.u = u;
         this.q = q;
         q.writeResult();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        panel.setBackground(Color.CYAN);
+        panel.setBackground(Color.GREEN.darker().darker());
         lblUsername.setText(lblUsername.getText() + "" + u.getUsername());
         lblMark.setText("Mark: "+q.getMark()+"/18");
         lblMark.setFont(new Font("", Font.BOLD, 20));
@@ -30,11 +38,12 @@ public class QuizOver implements ActionListener {
         lblTime.setFont(new Font("", Font.BOLD, 20));
         lblTitle.setFont(new Font("", Font.BOLD, 20));
         lblUsername.setFont(new Font("", Font.BOLD, 20));
-        panel.setSize(700, 500);
+        panel.setSize(1920, 1080);
         panel.setLayout(layout);
         panel.add(btnNext);
         panel.add(lblMark);
         panel.add(lblTime);
+        panel.add(backgroundLabel);
         
         panel.add(lblUsername);
         panel.add(lblTitle);
@@ -63,15 +72,12 @@ public class QuizOver implements ActionListener {
         }
         frame.add(panel);
         frame.pack();
-        frame.setSize(700, 500);
+        frame.setSize(1920, 1080);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         btnNext.addActionListener(this);
         btnNext.setActionCommand("next");
-       
     }
-
-    
 
     @Override
     public void actionPerformed(ActionEvent e) {
