@@ -1,9 +1,9 @@
 package gui;
 
-import javax.swing.*;
-
-import user.LoginRegister;
 import user.User;
+import user.passRegex;
+
+import javax.swing.*;
 import java.awt.event.*;
 
 public class LoginScreen implements ActionListener {
@@ -12,7 +12,7 @@ public class LoginScreen implements ActionListener {
     
     private String usernameInput, passwordInput;
     static User u = new User();
-    static LoginRegister logReg = new LoginRegister();
+    passRegex passwordRegex = new passRegex();
     static JFrame frame = new JFrame("Login");
     JPanel panel = new JPanel();
 
@@ -83,10 +83,10 @@ public class LoginScreen implements ActionListener {
         if (!usernameInput.contains(" ") && !passwordInput.contains(" ") && !usernameInput.isBlank()&& !passwordInput.isBlank()) {
             switch (e.getActionCommand()) {
                 case "Login":
-                    logReg.Login(usernameInput, passwordInput, u, frame);
+                    Login(usernameInput, passwordInput);
                     break;
                 case "Register":
-                    logReg.Register(usernameInput, passwordInput, u, frame);
+                    Register(usernameInput, passwordInput);
                     break;
             }
             
@@ -96,4 +96,28 @@ public class LoginScreen implements ActionListener {
             }
     }
 
+    private void Login(String username, String password) {
+        if (u.validLogIn(username, password)) {
+                    //System.out.println("Login Successful");
+                    OpenMenu(u, frame);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Login Unsuccessful, Invalid username or password");
+                }
+    }
+    
+    private void Register(String username, String password) {
+        if(passRegex.validPassword(password)){
+            u.setUserInfo(username, password);
+            OpenMenu(u, frame);
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Registration Unsuccessful, password invalid");
+        }
+        
+    }
+    
+    public static void OpenMenu(User u, JFrame frame){
+        new MenuScreen(u);
+        frame.dispose();
+    }
 }

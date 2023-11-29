@@ -29,7 +29,6 @@ public class StatsScreen implements ActionListener {
     JLabel backgroundLabel = new JLabel(new ImageIcon(BACKGROUND_IMAGE));
 
 
-
     public StatsScreen(User u) {
         this.u = u;
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

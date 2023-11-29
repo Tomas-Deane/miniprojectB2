@@ -1,18 +1,18 @@
-What is the meaning of the biconditinal statement: (p<->q)?, 
-What is the formula to calculate the number of required rows in a truth table based on the number of variables(n)?, 
-Which of these propositions is a tautology, 
-What is the cardinality of the Power set of set S, where S={1,2,3}?,
-What is the structure of the identity matrix?,
-What is the meaning of proof by Contraposition,
-How can a non terminal symbol in BNF be identified?, 
-True/False: All Hasse Diagrams are lattices.,
-True/False: A lattice is both a sup-semilattice and an inf-semilattice.,
-What are the properties of a partial order relation?,
-True/False: If p is a lower bound of Y in (S,partial order),\n and there is an element q in the lower bounds of Y such that p partial order q holds for all p in the lower bounds of Y,\n then q is the minimum of Y in (S, partial order),
-True/False: Tarski's fixed point theorem states that,\n in a complete lattice, every order-preserving function has at least one fixed point.,
-What is the binary equivalent to 17?,
-What is the Von Neumann Bottleneck caused by?,
-What is Level 1 in the Contemporary Multilevel Machine?,
-What does RISC stand for?,
-When converting binary to hexadecimal, how many binary digits should one group per hexadecimal digit?,
-What is the purpose of this assembly program?\n.begin\r\n      .org 2048\r\n  progl:	ld    [x], %r1\r\n     	ld    [y], %r2\r\n     	subcc %r1, %r2, %r3\r\n    	st %r3, [z]\r\n      	!jmpl %r15  4, %r0\r\n  x:    7\r\n  y:    4\r\n  z:    0\r\n      .end
+What is the meaning of the biconditinal statement: (p<->q)?//Or-Exclusive Or-If-If and only if
+What is the formula to calculate the number of required rows in a truth table based on the number of variables(n)?//n^2-2^n-2n-n^n
+Which of these propositions is a tautology?//p^p'-(p → q) ↔ (q ∨ p')-(p → q) ^ (q → p)-p⊕p
+What is the cardinality of the Power set of set S, where S={1,2,3}?//3-7-8-6
+What is the structure of the identity matrix?//Alternating zeros and ones-Square Matrix with a diagonal of ones, from top left to bottom right, and zero otherwise-A square matrix of ones-A rectangular matrix of side ones and zero otherwise
+What is the meaning of proof by Contraposition?//To prove A → B, prove B → A.-To prove A → B, prove statement B' → A'.-To prove A → B, prove A ^ B'.-To prove A → B, prove (A → B)'.
+How can a non terminal symbol in BNF be identified?//Characters between '.-Character after a backslash.-Characters between < >.-::=
+True/False: All Hasse Diagrams are lattices.//True-False
+True/False: A lattice is both a sup-semilattice and an inf-semilattice.//True-False
+What are the properties of a partial order relation?//Symettric, Transitive, Anti reflexive-Anti symettric, Anti transitive, Reflexive-Asymettric, Transitive, Reflexive-Anti symettric, Transitive, Reflexive
+True/False: If p is a lower bound of Y in (S,partial order),\n and there is an element q in the lower bounds of Y such that p partial order q holds for all p in the lower bounds of Y,\n then q is the minimum of Y in (S, partial order).//True-False
+True/False: Tarski's fixed point theorem states that,\n in a complete lattice, every order-preserving function has at least one fixed point.//True-False
+What is the binary equivalent to 17?//10001-1001-10010-10011
+What is the Von Neumann Bottleneck caused by?//The PSU not supplying sufficient voltage-Data loss in hard drives-The CPU awaiting instruction from cache, memory or hard drives-Newer operating systems running on older components
+What is Level 1 in the Contemporary Multilevel Machine?//Microarchitecture Level-Digital Logic Level-Instruction Set Architecture Level-Operating System Machine Level
+What does RISC stand for?//Reduced Input Selection Computer-Rapid Instruction Set Computing-Retailed Integrated System Chip-Reduced Instruction Set Computer
+When converting binary to hexadecimal, how many binary digits should one group per hexadecimal digit?//1-2-4-8
+What is the purpose of this assembly program?\n.begin\r\n      .org 2048\r\n  progl:	ld    [x], %r1\r\n     	ld    [y], %r2\r\n     	subcc %r1, %r2, %r3\r\n    	st %r3, [z]\r\n      	!jmpl %r15  4, %r0\r\n  x:    7\r\n  y:    4\r\n  z:    0\r\n      .end//Add 2 numbers-Subtract 2 numbers-Subtract 3 numbers-Multiply 2 numbers by 0
