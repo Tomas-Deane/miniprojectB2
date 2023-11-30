@@ -55,12 +55,6 @@ public class StatsScreen implements ActionListener {
         layout.putConstraint(SpringLayout.WEST, btnBack, 10, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.SOUTH, btnBack, -10, SpringLayout.SOUTH, panel);
 
-        //layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, tblStats, 0, SpringLayout.HORIZONTAL_CENTER, panel);
-        //layout.putConstraint(SpringLayout.VERTICAL_CENTER, tblStats, 0, SpringLayout.VERTICAL_CENTER, panel);
-
-        /*SpringLayout.Constraints tableConstraints = layout.getConstraints(tblStats);
-        tableConstraints.setX(Spring.constant(10));
-        tableConstraints.setY(Spring.constant(10));*/
         frame.add(panel);
 
         frame.pack();
@@ -75,9 +69,6 @@ public class StatsScreen implements ActionListener {
         btnTim.setActionCommand("timer");
         btnBack.addActionListener(this);
         btnBack.setActionCommand("back");
-
-        //Add border to panel
-
     }
 
     @Override

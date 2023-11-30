@@ -15,7 +15,7 @@ public class userStatistics {
 
 	}
 
-	public static double mean(int[] results) {
+	public static double mean(int[] results) { // Return mean from array of quiz results
 		double sum = 0;
 		double mean = 0;
 		for (int i = 0; i < results.length; i++) {
@@ -25,7 +25,7 @@ public class userStatistics {
 		return mean;
 	}
 
-	public static double standardDeviation(int[] input) {
+	public static double standardDeviation(int[] input) { // Return standard deviation from array of quiz results
 		double mean = mean(input);
 		double sumOfSquares = 0;
 		for (int i = 0; i < input.length; i++) {
@@ -34,7 +34,7 @@ public class userStatistics {
 		return (Math.sqrt((sumOfSquares / input.length)));
 	}
 
-	private static int[] bubbleSort(int[] arr) {
+	private static int[] bubbleSort(int[] arr) { // Sort array in ascending order
 		int i, j, temp;
 		boolean swapped;
 		for (i = 0; i < arr.length - 1; i++) {
@@ -47,7 +47,6 @@ public class userStatistics {
 					swapped = true;
 				}
 			}
-
 			if (swapped == false)
 				break;
 		}

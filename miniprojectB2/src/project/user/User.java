@@ -59,7 +59,6 @@ public class User {
 			String prevLine = "0";
 			while (line != null) {
 				System.out.println(line);
-				// read next line
 				prevLine =line;
 				line = reader.readLine();
 				

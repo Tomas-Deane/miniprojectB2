@@ -8,16 +8,17 @@ import java.awt.event.*;
 
 public class LoginScreen implements ActionListener {
 
-    final private String BACKGROUND_IMAGE = "motherboard1.jpg";
+    final private String BACKGROUND_IMAGE = "motherboard1.jpg"; // Initialize background image variable
     
-    private String usernameInput, passwordInput;
+    private String usernameInput, passwordInput; //Initialize user variables
     static User u = new User();
     passRegex passwordRegex = new passRegex();
+
+
+    // Initialize GUI Varialbes
     static JFrame frame = new JFrame("Login");
     JPanel panel = new JPanel();
-
     SpringLayout layout = new SpringLayout();
-
 
     JLabel lblTitle = new JLabel("Welcome to the ISE Quiz ");
     JLabel lblUser = new JLabel("Username: ");
@@ -29,7 +30,7 @@ public class LoginScreen implements ActionListener {
     JLabel backgroundLabel = new JLabel(new ImageIcon(BACKGROUND_IMAGE));
     
 
-    public LoginScreen() {
+    public LoginScreen() { // Open Login Screen
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         backgroundLabel.setBounds(0,0,1920,1080);
@@ -77,7 +78,7 @@ public class LoginScreen implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e) { //Click check for login buttons
         usernameInput = txtUser.getText();
         passwordInput = txtPass.getText();
         if (!usernameInput.contains(" ") && !passwordInput.contains(" ") && !usernameInput.isBlank()&& !passwordInput.isBlank()) {

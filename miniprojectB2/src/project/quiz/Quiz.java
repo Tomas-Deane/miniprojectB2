@@ -61,7 +61,6 @@ public class Quiz {
 
             Scanner reader = new Scanner("timerResults.txt");
             while (reader.hasNextLine()) {
-                // writer.write("\n");
                 reader.nextLine();
 
             }

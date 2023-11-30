@@ -11,9 +11,12 @@ import javax.swing.*;
 import quiz.Quiz;
 import user.User;
 public class QuizOver implements ActionListener {
+    // Initialize user variable
     User u = new User();
     Quiz q;
-    final private String BACKGROUND_IMAGE = "ISEBackground.jpeg";
+    final private String BACKGROUND_IMAGE = "ISEBackground.jpeg"; // Initialize background image variable
+
+    // Initialize GUI Variables
     static JFrame frame = new JFrame("Quiz Over");
     JPanel panel = new JPanel();
     SpringLayout layout = new SpringLayout();
@@ -43,6 +46,7 @@ public class QuizOver implements ActionListener {
         panel.add(btnNext);
         panel.add(lblMark);
         panel.add(lblTime);
+        //Add background image to panel
         panel.add(backgroundLabel);
         
         panel.add(lblUsername);

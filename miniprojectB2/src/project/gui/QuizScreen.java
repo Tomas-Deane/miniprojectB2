@@ -168,14 +168,14 @@ public class QuizScreen implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
 
-            case "startQuiz":
-                if (radIncDiff.isSelected()) {
+            case "startQuiz": // start quiz
+                if (radIncDiff.isSelected()) { // check if increasing difficulty button is selected
                     q.setQuizType(0);
                     startQuiz(true);
-                } else if (radRandom.isSelected()) {
+                } else if (radRandom.isSelected()) { // check if random selection button is selected
                     q.setQuizType(1);
                     startQuiz(false);
-                }else if(radTimed.isSelected()){
+                }else if(radTimed.isSelected()){ // check if timed button is selected
                     q.setQuizType(2);
                     startQuiz(true);
                 }
@@ -183,7 +183,7 @@ public class QuizScreen implements ActionListener {
                     JOptionPane.showMessageDialog(null, "Select a format");
                 }
                 break;
-            case "a0":
+            case "a0": //Check index of answer selected
                 nextQuestion(0);
                 break;
             case "a1":
@@ -201,7 +201,7 @@ public class QuizScreen implements ActionListener {
     public void startQuiz(boolean increasingDifficulty) {
         formatPanel.setVisible(false);
         quizPanel.setVisible(true);
-        if(q.getQuizType()==2){
+        if(q.getQuizType()==2){ //Start timer if quiz is timed
             startTime = formats.startTimer();
         }
         qNums = formats.getQuestionIndices(increasingDifficulty);
@@ -211,20 +211,14 @@ public class QuizScreen implements ActionListener {
     public void nextQuestion(int answerChoice) {
         try {
             if (answerChoice >= 0) {
-                int correctAns = bank.getCorrectAnswer(qNums[qPointer]);
-                if (answerChoice == correctAns) {
+                int correctAns = Integer.parseInt(bank.getQuestionInfo(qNums[qPointer])[2]);
+                if (answerChoice == correctAns) { //Check if answer is correct
                     marks++;
                     lblMarks.setText("Marks: " + marks);
-                    //lblAStatus.setText("Correct!");
-                    //lblAStatus.setBackground(Color.GREEN);
                 }
-                
-                //lblAStatus.setVisible(true);
                 qPointer++;
-                
-                //lblAStatus.setVisible(false);
             }
-            lblQuestion.setText("<html><pre>" + bank.getQuestion(qNums[qPointer]) + "</pre></html>");
+            lblQuestion.setText("<html><pre>" + bank.getQuestionInfo(qNums[qPointer])[0] + "</pre></html>");
         } catch (ArrayIndexOutOfBoundsException e) {
             //end quiz
             endQuiz();
@@ -233,10 +227,11 @@ public class QuizScreen implements ActionListener {
         try {
             btnAnsTwo.setVisible(true);
             btnAnsThree.setVisible(true);
-            btnAnsZero.setText(bank.getAnswer(qNums[qPointer], 0));
-            btnAnsOne.setText(bank.getAnswer(qNums[qPointer], 1));
-            btnAnsTwo.setText(bank.getAnswer(qNums[qPointer], 2));
-            btnAnsThree.setText(bank.getAnswer(qNums[qPointer], 3));
+            //Get answer options from question bank
+            btnAnsZero.setText(bank.getQuestionInfo(qNums[qPointer])[1].split("-")[0]);
+            btnAnsOne.setText(bank.getQuestionInfo(qNums[qPointer])[1].split("-")[1]);
+            btnAnsTwo.setText(bank.getQuestionInfo(qNums[qPointer])[1].split("-")[2]);
+            btnAnsThree.setText(bank.getQuestionInfo(qNums[qPointer])[1].split("-")[3]);
         } catch (ArrayIndexOutOfBoundsException e) {
             btnAnsTwo.setVisible(false);
             btnAnsThree.setVisible(false);
