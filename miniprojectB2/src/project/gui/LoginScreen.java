@@ -1,32 +1,41 @@
+package gui;
 
+import user.User;
+import user.passRegex;
 
 import javax.swing.*;
-
-import java.awt.Color;
 import java.awt.event.*;
 
 public class LoginScreen implements ActionListener {
-    private String usernameInput, passwordInput;
+
+    final private String BACKGROUND_IMAGE = "motherboard1.jpg"; // Initialize background image variable
+    
+    private String usernameInput, passwordInput; //Initialize user variables
     static User u = new User();
+    passRegex passwordRegex = new passRegex();
+
+
+    // Initialize GUI Varialbes
     static JFrame frame = new JFrame("Login");
     JPanel panel = new JPanel();
     SpringLayout layout = new SpringLayout();
 
-    JLabel lblTitle= new JLabel("Welcome to the ISE Quiz ");
+    JLabel lblTitle = new JLabel("Welcome to the ISE Quiz ");
     JLabel lblUser = new JLabel("Username: ");
     JTextField txtUser = new JTextField("", 15);
     JLabel lblPass = new JLabel("Password: ");
     JTextField txtPass = new JTextField("", 15);
     JButton btnLogin = new JButton("Login", null);
     JButton btnRegister = new JButton("Register New User", null);
+    JLabel backgroundLabel = new JLabel(new ImageIcon(BACKGROUND_IMAGE));
+    
 
-    // text.setBounds(200, 200,400,500);;
-    public LoginScreen() {
-        //JFrame.setDefaultLookAndFeelDecorated(true);        
+    public LoginScreen() { // Open Login Screen
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setBackground(Color.CYAN);
-        panel.setBackground(Color.CYAN);
-        panel.setBounds(0,0,700, 500);
+
+        backgroundLabel.setBounds(0,0,1920,1080);
+
+        panel.setBounds(0,0,1920, 1080);
         panel.setLayout(layout);
         panel.add(lblTitle);
         panel.add(lblUser);
@@ -35,11 +44,10 @@ public class LoginScreen implements ActionListener {
         panel.add(txtPass);
         panel.add(btnLogin);
         panel.add(btnRegister);
+        panel.add(backgroundLabel);
+        
         lblTitle.setHorizontalAlignment(JLabel.CENTER);
         // Put constraint on components
-        // TITLE CONSTRAINTS
-        //layout.putConstraint(SpringLayout.WEST, lblTitle, (panel.getWidth()-lblTitle.getWidth())/2, SpringLayout.WEST, panel);
-        //layout.putConstraint(SpringLayout.NORTH, lblUser, 60, SpringLayout.NORTH, panel);
         // USERNAME CONSTRAINTS
         layout.putConstraint(SpringLayout.WEST, lblUser, 70, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.NORTH, lblUser, 100, SpringLayout.NORTH, panel);
@@ -56,9 +64,10 @@ public class LoginScreen implements ActionListener {
         // REGISTER BUTTON CONSTRAINTS
         layout.putConstraint(SpringLayout.WEST, btnRegister, 150, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.NORTH, btnRegister, 200, SpringLayout.NORTH, panel);
+
         frame.add(panel);
         frame.pack();
-        frame.setSize(700, 500);
+        frame.setSize(1920, 1920);
         frame.setLocationRelativeTo(null);
         
         frame.setVisible(true);
@@ -69,17 +78,16 @@ public class LoginScreen implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e) { //Click check for login buttons
         usernameInput = txtUser.getText();
         passwordInput = txtPass.getText();
-        String[] info = { usernameInput, passwordInput };
         if (!usernameInput.contains(" ") && !passwordInput.contains(" ") && !usernameInput.isBlank()&& !passwordInput.isBlank()) {
             switch (e.getActionCommand()) {
                 case "Login":
-                    Login(info);
+                    Login(usernameInput, passwordInput);
                     break;
                 case "Register":
-                    Register(info);
+                    Register(usernameInput, passwordInput);
                     break;
             }
             
@@ -89,26 +97,27 @@ public class LoginScreen implements ActionListener {
             }
     }
 
-    public static void Login(String[] info) {
-        //User u = new User();
-        if (u.validLogIn(info)) {
+    private void Login(String username, String password) {
+        if (u.validLogIn(username, password)) {
                     //System.out.println("Login Successful");
-                    OpenMenu();
+                    OpenMenu(u, frame);
                 } else {
                     JOptionPane.showMessageDialog(null, "Login Unsuccessful, Invalid username or password");
                 }
     }
-    public static void Register(String[] info) {
-        if(passRegex.validPassword(info[1])){
-            u.setUserInfo(info);
-            OpenMenu();
+    
+    private void Register(String username, String password) {
+        if(passRegex.validPassword(password)){
+            u.setUserInfo(username, password);
+            OpenMenu(u, frame);
         }
         else{
             JOptionPane.showMessageDialog(null, "Registration Unsuccessful, password invalid");
         }
         
     }
-    public static void OpenMenu(){
+    
+    public static void OpenMenu(User u, JFrame frame){
         new MenuScreen(u);
         frame.dispose();
     }

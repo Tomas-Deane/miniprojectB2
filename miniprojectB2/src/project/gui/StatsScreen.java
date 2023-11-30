@@ -1,5 +1,9 @@
+package gui;
 import javax.swing.*;
-import java.awt.Color;
+
+import quiz.userStatistics;
+import user.User;
+
 import java.awt.event.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -14,6 +18,7 @@ public class StatsScreen implements ActionListener {
     static JFrame frame = new JFrame("Statistics");
     JPanel panel = new JPanel();
     SpringLayout layout = new SpringLayout();
+    final private String BACKGROUND_IMAGE = "ISEBackground.jpeg";
 
     JLabel lblTitle = new JLabel("Select a format");
     //JTable tblStats =new JTable();
@@ -21,14 +26,14 @@ public class StatsScreen implements ActionListener {
     JButton btnRand = new JButton("Random");
     JButton btnTim = new JButton("Timed");
     JButton btnBack = new JButton("Back");
+    JLabel backgroundLabel = new JLabel(new ImageIcon(BACKGROUND_IMAGE));
 
 
     public StatsScreen(User u) {
         this.u = u;
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        panel.setBackground(Color.CYAN);
         
-        panel.setSize(700, 500);
+        panel.setSize(1920, 1080);
         panel.setLayout(layout);
         //panel.add(tblStats);
         panel.add(lblTitle);
@@ -36,9 +41,10 @@ public class StatsScreen implements ActionListener {
         panel.add(btnTim);
         panel.add(btnIncDiff);
         panel.add(btnBack);
+        panel.add(backgroundLabel);
 
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, lblTitle, 0, SpringLayout.HORIZONTAL_CENTER, panel);
-        layout.putConstraint(SpringLayout.NORTH, lblTitle, 10, SpringLayout.NORTH, panel);
+        layout.putConstraint(SpringLayout.NORTH, lblTitle, 60, SpringLayout.NORTH, panel);
 
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, btnIncDiff, 200, SpringLayout.HORIZONTAL_CENTER, panel);
         layout.putConstraint(SpringLayout.NORTH, btnIncDiff, 30, SpringLayout.NORTH, panel);
@@ -49,16 +55,10 @@ public class StatsScreen implements ActionListener {
         layout.putConstraint(SpringLayout.WEST, btnBack, 10, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.SOUTH, btnBack, -10, SpringLayout.SOUTH, panel);
 
-        //layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, tblStats, 0, SpringLayout.HORIZONTAL_CENTER, panel);
-        //layout.putConstraint(SpringLayout.VERTICAL_CENTER, tblStats, 0, SpringLayout.VERTICAL_CENTER, panel);
-
-        /*SpringLayout.Constraints tableConstraints = layout.getConstraints(tblStats);
-        tableConstraints.setX(Spring.constant(10));
-        tableConstraints.setY(Spring.constant(10));*/
         frame.add(panel);
 
         frame.pack();
-        frame.setSize(700, 500);
+        frame.setSize(1920, 1080);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         btnIncDiff.addActionListener(this);
@@ -69,7 +69,6 @@ public class StatsScreen implements ActionListener {
         btnTim.setActionCommand("timer");
         btnBack.addActionListener(this);
         btnBack.setActionCommand("back");
-
     }
 
     @Override

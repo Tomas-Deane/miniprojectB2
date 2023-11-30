@@ -1,6 +1,6 @@
+package quiz;
 import java.lang.Math;
 public class userStatistics {
-	
 	public static double median(int[] results) { // Return median from array of quiz results
 		double median = 0;
 		int[] sortedResults = bubbleSort(results); // Sort results in order
@@ -15,9 +15,9 @@ public class userStatistics {
 
 	}
 
-	public static double mean(int[] results) {
-		int sum = 0;
-		int mean = 0;
+	public static double mean(int[] results) { // Return mean from array of quiz results
+		double sum = 0;
+		double mean = 0;
 		for (int i = 0; i < results.length; i++) {
 			sum += results[i];
 		}
@@ -25,16 +25,16 @@ public class userStatistics {
 		return mean;
 	}
 
-	public static double standardDeviation(int[] results) {
-		double mean = mean(results);
+	public static double standardDeviation(int[] input) { // Return standard deviation from array of quiz results
+		double mean = mean(input);
 		double sumOfSquares = 0;
-		for (int i = 0; i < results.length; i++) {
-			sumOfSquares += Math.pow((results[i] - mean), 2);
+		for (int i = 0; i < input.length; i++) {
+			sumOfSquares += Math.pow((input[i] - mean), 2);
 		}
-		return (Math.sqrt((sumOfSquares / results.length)));
+		return (Math.sqrt((sumOfSquares / input.length)));
 	}
 
-	private static int[] bubbleSort(int[] arr) {
+	private static int[] bubbleSort(int[] arr) { // Sort array in ascending order
 		int i, j, temp;
 		boolean swapped;
 		for (i = 0; i < arr.length - 1; i++) {
@@ -47,7 +47,6 @@ public class userStatistics {
 					swapped = true;
 				}
 			}
-
 			if (swapped == false)
 				break;
 		}
