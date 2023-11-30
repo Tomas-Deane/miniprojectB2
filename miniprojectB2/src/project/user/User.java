@@ -38,10 +38,10 @@ public class User {
 		this.password = password;
 	}
 
-	public void setNewID() { // Creates user specific ID and stores in text file "userID.txt"
+	private void setNewID() { // Creates user specific ID and stores in text file "userID.txt"
 		int newID = 1;
 		try {
-			File myObj = new File("userID.txt");
+			File myObj = new File("userID.txt"); // Creates file if it does not exist
 			if (!myObj.exists()) {
 				myObj.createNewFile();
 				BufferedWriter writer = new BufferedWriter(new FileWriter("userID.txt", true));
@@ -57,14 +57,14 @@ public class User {
 			BufferedReader reader = new BufferedReader(new FileReader("userID.txt"));
 			String line = reader.readLine();
 			String prevLine = "0";
-			while (line != null) {
+			while (line != null) { // Reads through file to find last ID
 				System.out.println(line);
 				prevLine =line;
 				line = reader.readLine();
 				
 			}
 			
-			newID += Integer.parseInt(prevLine);
+			newID += Integer.parseInt(prevLine); // Sets new ID to last ID + 1
 			writer.append(String.format("\n%s", newID));
 			writer.close();
 			reader.close();
